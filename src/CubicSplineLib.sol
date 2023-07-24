@@ -50,9 +50,8 @@ library CubicSplineLib {
         for (uint256 i = 1; i < spline.length; i++) {
             next_segment = spline[i];
 
-            int256 y = evalPolynomial(segment.a, segment.b, segment.c, segment.d, segment.knot1);
-            int256 next_y =
-                evalPolynomial(next_segment.a, next_segment.b, next_segment.c, next_segment.d, next_segment.knot0);
+            int256 y = evalPolynomial(segment.a, segment.b, segment.c, segment.d, segment.knot1 - segment.knot0);
+            int256 next_y = evalPolynomial(next_segment.a, next_segment.b, next_segment.c, next_segment.d, 0);
 
             if (segment.knot1 != next_segment.knot0 || !approxEq(y, next_y) || next_segment.knot0 >= next_segment.knot1)
             {
@@ -103,7 +102,7 @@ library CubicSplineLib {
 
         if (x < segment.knot0 || x > segment.knot1) revert ValueOutOfBounds();
 
-        return evalPolynomial(segment.a, segment.b, segment.c, segment.d, x);
+        return evalPolynomial(segment.a, segment.b, segment.c, segment.d, x - segment.knot0);
     }
 
     /**
@@ -134,7 +133,7 @@ library CubicSplineLib {
 
         SplineSegment memory segment = spline[low];
 
-        return evalPolynomial(segment.a, segment.b, segment.c, segment.d, x);
+        return evalPolynomial(segment.a, segment.b, segment.c, segment.d, x - segment.knot0);
     }
 
     // =========================================================================
