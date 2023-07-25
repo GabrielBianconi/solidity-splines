@@ -9,6 +9,8 @@ contract CubicSplineTest is Test {
 
     using CubicSplineLib for CubicSplineLib.SplineSegment[];
 
+    uint256 public constant EPSILON = 1e18 / 1e8; // numbers within 1e-8 (%) are considered equal
+
     function setUp() public {
         // The following spline is the natural cubic spline interpolation for:
         // [[0, 0], [0.8, 0.5], [0.9, 0.4], [1.0, 0.5]]
@@ -179,5 +181,36 @@ contract CubicSplineTest is Test {
     function testRevertEvalWithBinarySearchOutOfBoundsRight() public {
         vm.expectRevert(abi.encodeWithSelector(CubicSplineLib.ValueOutOfBounds.selector));
         CubicSplineLib.evalWithBinarySearch(spline, spline[spline.length - 1].knot1 + 1.0e18);
+    }
+
+    function testFuzzEval(uint32 seed) public {
+        // Build ffi command string
+        string[] memory inputs = new string[](3);
+        inputs[0] = "python";
+        inputs[1] = "reference/generate_random_spline.py";
+        inputs[2] = vm.toString(seed);
+
+        // Execute the reference script and decode the results
+        bytes memory encodedValues = vm.ffi(inputs);
+
+        CubicSplineLib.SplineSegment[] memory spline_memory;
+        int256[128] memory x_test;
+        int256[128] memory y_test;
+        uint256[128] memory index_test;
+
+        (spline_memory, x_test, y_test, index_test) =
+            abi.decode(encodedValues, (CubicSplineLib.SplineSegment[], int256[128], int256[128], uint256[128]));
+
+        // Move the spline from memory to storage
+        delete spline;
+        for (uint256 i = 0; i < spline_memory.length; i++) {
+            spline.push(spline_memory[i]);
+        }
+
+        // Validate all the test cases
+        for (uint256 i = 0; i < x_test.length; i++) {
+            assertApproxEqRel(CubicSplineLib.evalWithBinarySearch(spline, x_test[i]), y_test[i], EPSILON);
+            assertApproxEqRel(CubicSplineLib.evalWithSegmentIndex(spline, index_test[i], x_test[i]), y_test[i], EPSILON);
+        }
     }
 }

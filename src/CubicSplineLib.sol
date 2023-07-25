@@ -141,7 +141,7 @@ library CubicSplineLib {
     // =========================================================================
 
     int256 public constant WAD = 1e18; // a, b, c, d, knot0, knot1, and x have this precision
-    uint256 public constant EPSILON = 1e6; // two fixed-precision numbers are considered equal if their difference is less than this (for `approxEq`)
+    uint256 public constant EPSILON = uint256(WAD) / 1e8; // two fixed-precision numbers are considered equal if their difference is less than this (for `approxEq`)
 
     /**
      * @notice Compute the absolute value of a signed integer

@@ -1,0 +1,7 @@
+{
+    "scripts": {
+        "build": "forge build",
+        "test": "forge test",
+        "test:fuzz": "FOUNDRY_PROFILE=fuzz forge test"
+    }
+}
