@@ -7,6 +7,27 @@
 
 ## Contracts
 
-The Solidity smart contracts are located in the `src` directory.
+### `src/CubicSplineLib.sol`
 
-- **`CubicSplineLib.sol`:** Library for evaluating simple cubic splines (with known or unknown segment indices)
+This library provides functionality for evaluating simple cubic splines in Solidity.
+
+It provides two methods for evaluation:
+
+- `evalWithSegmentIndex`: This method is more gas efficient and can be used if the client knows the specific spline segment index in advance.
+- `evalWithBinarySearch`: This method can be used if the index needs to be determined on the fly.
+
+In addition, we provide a differential fuzz test against a reference Python implementation. Refer to `test/CubicSplineLib.t.sol:testFuzzEval` for more details.
+
+## Testing
+
+To run standard tests, use the following command:
+
+```sh
+npm run test
+```
+
+To run with longer fuzzing (100 runs), use the following command:
+
+```sh
+npm run test:fuzz
+```
