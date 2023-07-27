@@ -3,5 +3,11 @@
         "build": "forge build",
         "test": "forge test",
         "test:fuzz": "FOUNDRY_PROFILE=fuzz forge test"
+    },
+    "dependencies": {
+        "@openzeppelin/merkle-tree": "^1.0.5"
+    },
+    "devDependencies": {
+        "@types/node": "^20.4.5"
     }
 }

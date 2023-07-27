@@ -4,7 +4,9 @@ import eth_abi
 import numpy as np
 import scipy
 
+
 WAD = int(1e18) # spline parameters will be represented in fixed-precision based on WAD
+
 
 def generate_random_spline_test(seed: int):
     np.random.seed(seed)
@@ -50,6 +52,7 @@ def array1D_to_fixed_precision(arr):
     arr = arr.astype(Decimal).tolist() # make it a list of Decimal
     arr = [int(v * WAD) for v in arr] # make it a list of integers with WAD precision
     return arr
+
 
 def array2D_to_fixed_precision(arr):
     arr = arr.astype(Decimal).tolist() # make it a nested list of Decimal

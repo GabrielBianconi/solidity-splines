@@ -96,35 +96,29 @@ contract CubicSplineTest is Test {
         assertApproxEqAbs(
             CubicSplineLib.evalPolynomial(2.19384473e18, 0.58131653e18, -0.13454918e18, 0.36528631e18, 0.32848131e18),
             0.4615701662620617e18,
-            CubicSplineLib.EPSILON
+            EPSILON
         );
     }
 
     function testEvalWithSegmentIndex() public {
         // Evaluate a value in the first segment
-        assertApproxEqAbs(
-            CubicSplineLib.evalWithSegmentIndex(spline, 0, 0.5e18), 0.6043133802816902e18, CubicSplineLib.EPSILON
-        );
+        assertApproxEqAbs(CubicSplineLib.evalWithSegmentIndex(spline, 0, 0.5e18), 0.6043133802816902e18, EPSILON);
 
         // Evaluate a value in the second segment
         assertApproxEqAbs(
-            CubicSplineLib.evalWithSegmentIndex(spline, 1, 0.86020368e18),
-            0.42346585119343416e18,
-            CubicSplineLib.EPSILON
+            CubicSplineLib.evalWithSegmentIndex(spline, 1, 0.86020368e18), 0.42346585119343416e18, EPSILON
         );
 
         // Evaluate a value in the third segment
-        assertApproxEqAbs(
-            CubicSplineLib.evalWithSegmentIndex(spline, 2, 0.92962955e18), 0.410804860814757e18, CubicSplineLib.EPSILON
-        );
+        assertApproxEqAbs(CubicSplineLib.evalWithSegmentIndex(spline, 2, 0.92962955e18), 0.410804860814757e18, EPSILON);
 
         // Evaluate the bounds and knots of the spline
-        assertApproxEqAbs(CubicSplineLib.evalWithSegmentIndex(spline, 0, 0.0e18), 0.0e18, CubicSplineLib.EPSILON);
-        assertApproxEqAbs(CubicSplineLib.evalWithSegmentIndex(spline, 0, 0.8e18), 0.5e18, CubicSplineLib.EPSILON);
-        assertApproxEqAbs(CubicSplineLib.evalWithSegmentIndex(spline, 1, 0.8e18), 0.5e18, CubicSplineLib.EPSILON);
-        assertApproxEqAbs(CubicSplineLib.evalWithSegmentIndex(spline, 1, 0.9e18), 0.4e18, CubicSplineLib.EPSILON);
-        assertApproxEqAbs(CubicSplineLib.evalWithSegmentIndex(spline, 2, 0.9e18), 0.4e18, CubicSplineLib.EPSILON);
-        assertApproxEqAbs(CubicSplineLib.evalWithSegmentIndex(spline, 2, 1.0e18), 0.5e18, CubicSplineLib.EPSILON);
+        assertApproxEqAbs(CubicSplineLib.evalWithSegmentIndex(spline, 0, 0.0e18), 0.0e18, EPSILON);
+        assertApproxEqAbs(CubicSplineLib.evalWithSegmentIndex(spline, 0, 0.8e18), 0.5e18, EPSILON);
+        assertApproxEqAbs(CubicSplineLib.evalWithSegmentIndex(spline, 1, 0.8e18), 0.5e18, EPSILON);
+        assertApproxEqAbs(CubicSplineLib.evalWithSegmentIndex(spline, 1, 0.9e18), 0.4e18, EPSILON);
+        assertApproxEqAbs(CubicSplineLib.evalWithSegmentIndex(spline, 2, 0.9e18), 0.4e18, EPSILON);
+        assertApproxEqAbs(CubicSplineLib.evalWithSegmentIndex(spline, 2, 1.0e18), 0.5e18, EPSILON);
     }
 
     function testRevertEvalWithSegmentIndexValueOutOfBoundsLeft() public {
@@ -150,27 +144,21 @@ contract CubicSplineTest is Test {
 
     function testEvalWithBinarySearch() public {
         // Evaluate a value in the first segment
-        assertApproxEqAbs(
-            CubicSplineLib.evalWithBinarySearch(spline, 0.5e18), 0.6043133802816902e18, CubicSplineLib.EPSILON
-        );
+        assertApproxEqAbs(CubicSplineLib.evalWithBinarySearch(spline, 0.5e18), 0.6043133802816902e18, EPSILON);
 
         // Evaluate a value in the second segment
-        assertApproxEqAbs(
-            CubicSplineLib.evalWithBinarySearch(spline, 0.86020368e18), 0.42346585119343416e18, CubicSplineLib.EPSILON
-        );
+        assertApproxEqAbs(CubicSplineLib.evalWithBinarySearch(spline, 0.86020368e18), 0.42346585119343416e18, EPSILON);
 
         // Evaluate a value in the third segment
-        assertApproxEqAbs(
-            CubicSplineLib.evalWithBinarySearch(spline, 0.92962955e18), 0.410804860814757e18, CubicSplineLib.EPSILON
-        );
+        assertApproxEqAbs(CubicSplineLib.evalWithBinarySearch(spline, 0.92962955e18), 0.410804860814757e18, EPSILON);
 
         // Evaluate the bounds and knots of the spline
-        assertApproxEqAbs(CubicSplineLib.evalWithBinarySearch(spline, 0.0e18), 0.0e18, CubicSplineLib.EPSILON);
-        assertApproxEqAbs(CubicSplineLib.evalWithBinarySearch(spline, 0.8e18), 0.5e18, CubicSplineLib.EPSILON);
-        assertApproxEqAbs(CubicSplineLib.evalWithBinarySearch(spline, 0.8e18), 0.5e18, CubicSplineLib.EPSILON);
-        assertApproxEqAbs(CubicSplineLib.evalWithBinarySearch(spline, 0.9e18), 0.4e18, CubicSplineLib.EPSILON);
-        assertApproxEqAbs(CubicSplineLib.evalWithBinarySearch(spline, 0.9e18), 0.4e18, CubicSplineLib.EPSILON);
-        assertApproxEqAbs(CubicSplineLib.evalWithBinarySearch(spline, 1.0e18), 0.5e18, CubicSplineLib.EPSILON);
+        assertApproxEqAbs(CubicSplineLib.evalWithBinarySearch(spline, 0.0e18), 0.0e18, EPSILON);
+        assertApproxEqAbs(CubicSplineLib.evalWithBinarySearch(spline, 0.8e18), 0.5e18, EPSILON);
+        assertApproxEqAbs(CubicSplineLib.evalWithBinarySearch(spline, 0.8e18), 0.5e18, EPSILON);
+        assertApproxEqAbs(CubicSplineLib.evalWithBinarySearch(spline, 0.9e18), 0.4e18, EPSILON);
+        assertApproxEqAbs(CubicSplineLib.evalWithBinarySearch(spline, 0.9e18), 0.4e18, EPSILON);
+        assertApproxEqAbs(CubicSplineLib.evalWithBinarySearch(spline, 1.0e18), 0.5e18, EPSILON);
     }
 
     function testRevertEvalWithBinarySearchOutOfBoundsLeft() public {
@@ -187,7 +175,7 @@ contract CubicSplineTest is Test {
         // Build ffi command string
         string[] memory inputs = new string[](3);
         inputs[0] = "python";
-        inputs[1] = "reference/generate_random_spline.py";
+        inputs[1] = "reference/generate_random_spline_test.py";
         inputs[2] = vm.toString(seed);
 
         // Execute the reference script and decode the results
