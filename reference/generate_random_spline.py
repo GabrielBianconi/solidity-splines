@@ -25,7 +25,6 @@ def generate_random_spline_test(seed: int):
     # Generate the spline segment parameters (with knots) in fixed-precision, taking into account numerical issues
     spline_params = np.vstack([spline.c, x_coords[:-1], x_coords[1:]]).T # array of N spline segments with shape (N, 6)
     
-
     # Generate 128 test cases
     x_test = np.random.uniform(x_coords[0], x_coords[-1], size=128)
     y_test = spline(x_test)
