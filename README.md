@@ -1,4 +1,5 @@
-![Header](header.png)
+
+![cactus](https://github.com/coastalism/merkle-cactus/assets/47015872/3aad4fc2-3bb7-44ae-9419-b6ddf049d0e6)
 
 # Merkle Cactus
 
